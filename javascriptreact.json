@@ -1,0 +1,12 @@
+{
+	"React Function Component": {
+		"prefix": "rjsfc",
+		"body": [
+			"const $1 = () => {",
+			"  return $2;",
+			"};",
+			"",
+			"export default $1;"
+		]
+	}
+}
