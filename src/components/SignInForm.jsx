@@ -4,6 +4,7 @@ import * as z from 'zod';
 
 import api from '@/api';
 import { useAuth } from '@/components/AuthProvider';
+import TextInput from '@/components/TextInput';
 import {
   Button,
   Card,
@@ -21,12 +22,7 @@ const signInFormSchema = z.object({
 const SignInForm = () => {
   const { setToken } = useAuth();
 
-  const {
-    formState: { errors, isSubmitting },
-    handleSubmit,
-    register,
-    setError,
-  } = useForm({
+  const form = useForm({
     resolver: zodResolver(signInFormSchema),
   });
 
@@ -35,7 +31,7 @@ const SignInForm = () => {
       const response = await api.post('/api/signin', data);
       setToken(response.data.accessToken);
     } catch (e) {
-      setError('root', {
+      form.setError('root', {
         message: e.response.data.message,
       });
     }
@@ -52,31 +48,23 @@ const SignInForm = () => {
       </CardHeader>
       <CardContent>
         <form className='flex flex-col gap-4'>
-          <div>
-            <Input {...register('email')} placeholder='name@example.com' />
-            {errors['email'] && (
-              <div className='mt-2 text-sm text-red-500'>
-                {errors['email'].message}
-              </div>
-            )}
-          </div>
+          <TextInput
+            control={form.control}
+            name='email'
+            placeholder='name@example.com'
+          />
+          <TextInput control={form.control} name='password' type='password' />
 
-          <div>
-            <Input {...register('password')} type='password' />
-            {errors['password'] && (
-              <div className='mt-2 text-sm text-red-500'>
-                {errors['password'].message}
-              </div>
-            )}
-          </div>
-
-          <Button disabled={isSubmitting} onClick={handleSubmit(onSubmit)}>
-            {isSubmitting ? 'Loading...' : 'Sign In'}
+          <Button
+            disabled={form.formState.isSubmitting}
+            onClick={form.handleSubmit(onSubmit)}
+          >
+            {form.formState.isSubmitting ? 'Loading...' : 'Sign In'}
           </Button>
 
-          {errors.root && (
+          {form.formState.errors.root && (
             <div className='text-center text-sm text-red-500'>
-              {errors.root.message}
+              {form.formState.errors.root.message}
             </div>
           )}
         </form>
