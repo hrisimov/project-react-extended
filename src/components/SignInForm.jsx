@@ -4,6 +4,7 @@ import * as z from 'zod';
 
 import api from '@/api';
 import { useAuth } from '@/components/AuthProvider';
+import Form from '@/components/Form';
 import TextInput from '@/components/TextInput';
 import {
   Button,
@@ -47,7 +48,7 @@ const SignInForm = () => {
         <Separator />
       </CardHeader>
       <CardContent>
-        <form className='flex flex-col gap-4'>
+        <Form form={form}>
           <TextInput
             control={form.control}
             name='email'
@@ -61,13 +62,7 @@ const SignInForm = () => {
           >
             {form.formState.isSubmitting ? 'Loading...' : 'Sign In'}
           </Button>
-
-          {form.formState.errors.root && (
-            <div className='text-center text-sm text-red-500'>
-              {form.formState.errors.root.message}
-            </div>
-          )}
-        </form>
+        </Form>
       </CardContent>
     </Card>
   );
