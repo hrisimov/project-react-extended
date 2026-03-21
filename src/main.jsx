@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
@@ -13,12 +14,16 @@ import './index.css';
 // DO NOT REMOVE: Seeds the local storage database with data
 seedLocalDatabase();
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <ThemeProvider>
-    <Provider store={store}>
-      <AuthProvider>
-        <Router />
-      </AuthProvider>
-    </Provider>
-  </ThemeProvider>,
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
+      <Provider store={store}>
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
+      </Provider>
+    </ThemeProvider>
+  </QueryClientProvider>,
 );
