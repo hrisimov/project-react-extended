@@ -1,21 +1,38 @@
+import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import api from '@/api';
+import DataRenderer from '@/components/DataRenderer';
 import ListingList from '@/components/ListingList';
 
 const ListingFavoritesPage = () => {
-  const { listings, favoriteListingIds } = useSelector(
-    (state) => state.listings,
-  );
+  const { favoriteListingIds } = useSelector((state) => state.listings);
 
-  const favoriteListings = useMemo(
-    () => listings.filter((listing) => favoriteListingIds.includes(listing.id)),
-    [listings, favoriteListingIds],
-  );
+  const {
+    data: { data: listings } = {},
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: ['listings'],
+    queryFn: () => api.get('/api/listings'),
+  });
+
+  const favoriteListings = useMemo(() => {
+    if (!listings) {
+      return [];
+    }
+
+    return listings.filter((listing) =>
+      favoriteListingIds.includes(listing.id),
+    );
+  }, [listings, favoriteListingIds]);
 
   return (
     <div className='container py-4'>
-      <ListingList listings={favoriteListings} />
+      <DataRenderer error={isError} isLoading={isLoading}>
+        <ListingList listings={favoriteListings} />
+      </DataRenderer>
     </div>
   );
 };
