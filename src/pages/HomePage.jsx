@@ -1,11 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
 import { useCallback, useMemo, useState } from 'react';
 
-import api from '@/api';
 import DataRenderer from '@/components/DataRenderer';
 import ListingFilters from '@/components/ListingFilters';
 import ListingList from '@/components/ListingList';
 import { Separator } from '@/components/ui';
+import useListingsQuery from '@/hooks/queries/useListingsQuery';
 
 const HomePage = () => {
   const [filters, setFilters] = useState({
@@ -20,10 +19,7 @@ const HomePage = () => {
     data: { data: listings } = {},
     isError,
     isLoading,
-  } = useQuery({
-    queryKey: ['listings', fetchOptions],
-    queryFn: () => api.get('/api/listings', fetchOptions),
-  });
+  } = useListingsQuery(fetchOptions);
 
   const handleFilters = useCallback((filters) => {
     setFilters(filters);
