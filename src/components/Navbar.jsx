@@ -39,6 +39,9 @@ const Navbar = () => {
               <Link>Account</Link>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
+              <Link to='/profile'>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+              </Link>
               <DropdownMenuItem onClick={handleSignOut}>
                 Sign Out
               </DropdownMenuItem>
