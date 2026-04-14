@@ -1,7 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
+import { getUserDisplayName } from '@/lib/utils/helpers';
 
 const UserAvatar = ({ className, imageOnly, user }) => {
-  const displayName = `${user.firstName} ${user.lastName}`;
+  const displayName = getUserDisplayName(user);
 
   return (
     <div className='flex flex-row items-center gap-2'>
