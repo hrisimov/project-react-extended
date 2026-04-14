@@ -6,6 +6,7 @@ import ListingList from '@/components/ListingList';
 import { Card, CardContent } from '@/components/ui';
 import UserAvatar from '@/components/UserAvatar';
 import useListingsQuery from '@/hooks/queries/useListingsQuery';
+import { getUserDisplayName } from '@/lib/utils/helpers';
 
 const ProfilePage = () => {
   const { user } = useAuth();
@@ -24,7 +25,7 @@ const ProfilePage = () => {
     return listings.filter((listing) => listing.userId === user.id);
   }, [listings, user.id]);
 
-  const displayName = `${user.firstName} ${user.lastName}`;
+  const displayName = getUserDisplayName(user);
 
   return (
     <div className='container py-4'>
