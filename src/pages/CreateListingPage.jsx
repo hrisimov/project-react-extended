@@ -1,5 +1,11 @@
+import CreateListingForm from '@/components/CreateListingForm';
+
 const CreateListingPage = () => {
-  return <div className='container py-4'>Create Listing Page!</div>;
+  return (
+    <div className='container py-4'>
+      <CreateListingForm />
+    </div>
+  );
 };
 
 export default CreateListingPage;
