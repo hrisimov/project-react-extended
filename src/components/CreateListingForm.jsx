@@ -1,6 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
+
+import useCreateListingMutation from '@/hooks/mutations/useCreateListingMutation';
 
 const createListingFormSchema = z.object({
   name: z.string(),
@@ -20,12 +23,27 @@ const createListingFormSchema = z.object({
 });
 
 const CreateListingForm = () => {
+  const navigate = useNavigate();
+
   const form = useForm({
     resolver: zodResolver(createListingFormSchema),
     defaultValues: {
       maxGuests: 1,
     },
   });
+
+  const createListingMutation = useCreateListingMutation();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await createListingMutation.mutateAsync(data);
+      navigate(`/listings/${response.data.id}`);
+    } catch (e) {
+      form.setError('root', {
+        message: e.response.data.message,
+      });
+    }
+  };
 
   return <div></div>;
 };
