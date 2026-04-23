@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
+import Form from '@/components/Form';
+import TextInput from '@/components/TextInput';
+import { Card, CardContent, CardHeader, Separator } from '@/components/ui';
 import useCreateListingMutation from '@/hooks/mutations/useCreateListingMutation';
 
 const createListingFormSchema = z.object({
@@ -45,7 +48,32 @@ const CreateListingForm = () => {
     }
   };
 
-  return <div></div>;
+  return (
+    <Card className='mx-auto w-[800px]'>
+      <CardHeader>
+        <h2 className='text-center text-2xl'>Create Listing</h2>
+        <p className='text-center text-muted-foreground'>
+          Create a new listing
+        </p>
+        <Separator />
+      </CardHeader>
+      <CardContent>
+        <Form form={form}>
+          <TextInput
+            control={form.control}
+            name='name'
+            placeholder='Listing name'
+          />
+          <TextInput
+            control={form.control}
+            multiline
+            name='description'
+            placeholder='Description'
+          />
+        </Form>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default CreateListingForm;
