@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import Form from '@/components/Form';
+import ImagesInput from '@/components/ImagesInput';
 import SelectInput from '@/components/SelectInput';
 import TextInput from '@/components/TextInput';
 import { Card, CardContent, CardHeader, Separator } from '@/components/ui';
@@ -82,6 +83,7 @@ const CreateListingForm = () => {
             options={locationOptions}
             placeholder='Select a location'
           />
+          <ImagesInput control={form.control} name='images' />
         </Form>
       </CardContent>
     </Card>
