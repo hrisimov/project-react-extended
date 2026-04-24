@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import Form from '@/components/Form';
+import SelectInput from '@/components/SelectInput';
 import TextInput from '@/components/TextInput';
 import { Card, CardContent, CardHeader, Separator } from '@/components/ui';
 import useCreateListingMutation from '@/hooks/mutations/useCreateListingMutation';
@@ -48,6 +49,11 @@ const CreateListingForm = () => {
     }
   };
 
+  const locationOptions = [
+    { value: '1', label: 'London' },
+    { value: '2', label: 'Paris' },
+  ];
+
   return (
     <Card className='mx-auto w-[800px]'>
       <CardHeader>
@@ -69,6 +75,12 @@ const CreateListingForm = () => {
             multiline
             name='description'
             placeholder='Description'
+          />
+          <SelectInput
+            control={form.control}
+            name='locationId'
+            options={locationOptions}
+            placeholder='Select a location'
           />
         </Form>
       </CardContent>
