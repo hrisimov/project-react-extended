@@ -6,6 +6,7 @@ import { z } from 'zod';
 import Form from '@/components/Form';
 import ImagesInput from '@/components/ImagesInput';
 import SelectInput from '@/components/SelectInput';
+import StepperInput from '@/components/StepperInput';
 import TextInput from '@/components/TextInput';
 import { Card, CardContent, CardHeader, Separator } from '@/components/ui';
 import useCreateListingMutation from '@/hooks/mutations/useCreateListingMutation';
@@ -84,6 +85,12 @@ const CreateListingForm = () => {
             placeholder='Select a location'
           />
           <ImagesInput control={form.control} name='images' />
+          <TextInput
+            control={form.control}
+            name='price'
+            placeholder='Price per night'
+          />
+          <StepperInput control={form.control} name='maxGuests' label='guest' />
         </Form>
       </CardContent>
     </Card>
