@@ -3,12 +3,19 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
+import DateRangeInput from '@/components/DateRangeInput';
 import Form from '@/components/Form';
 import ImagesInput from '@/components/ImagesInput';
 import SelectInput from '@/components/SelectInput';
 import StepperInput from '@/components/StepperInput';
 import TextInput from '@/components/TextInput';
-import { Card, CardContent, CardHeader, Separator } from '@/components/ui';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Separator,
+} from '@/components/ui';
 import useCreateListingMutation from '@/hooks/mutations/useCreateListingMutation';
 
 const createListingFormSchema = z.object({
@@ -91,6 +98,18 @@ const CreateListingForm = () => {
             placeholder='Price per night'
           />
           <StepperInput control={form.control} name='maxGuests' label='guest' />
+          <DateRangeInput
+            control={form.control}
+            name='availability'
+            placeholder='Select availability'
+            minDate={new Date()}
+          />
+          <Button
+            disabled={createListingMutation.isPending}
+            onClick={form.handleSubmit(onSubmit)}
+          >
+            {createListingMutation.isPending ? 'Loading...' : 'Create Listing'}
+          </Button>
         </Form>
       </CardContent>
     </Card>
