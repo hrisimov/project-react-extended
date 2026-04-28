@@ -40,7 +40,7 @@ const ImagesInput = ({ control, name }) => {
     <div className='flex flex-col gap-2'>
       <Carousel className='mx-auto w-[90%]'>
         <CarouselContent>
-          {imageOptions.map((image) => {
+          {imageOptions.map((image) => (
             <CarouselItem
               key={image}
               className='basis-1/3'
@@ -52,8 +52,8 @@ const ImagesInput = ({ control, name }) => {
                 src={getImageUrl(image)}
                 alt={`Listing Image Option ${image}`}
               />
-            </CarouselItem>;
-          })}
+            </CarouselItem>
+          ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
