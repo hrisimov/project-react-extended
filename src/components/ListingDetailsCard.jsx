@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import ListingDetailsCardImages from '@/components/ListingDetailsCardImages';
 import ListingFavoriteButton from '@/components/ListingFavoriteButton';
+import ListingRatingStars from '@/components/ListingRatingStars';
 import { Card, Separator } from '@/components/ui';
 import UserAvatar from '@/components/UserAvatar';
 
@@ -38,7 +39,13 @@ const ListingDetailsCard = ({ listing }) => {
             </span>
           </div>
         </div>
-        <ListingFavoriteButton listing={listing} />
+        <div>
+          <ListingRatingStars
+            className='mr-2 bg-transparent px-0 py-0'
+            listing={listing}
+          />
+          <ListingFavoriteButton listing={listing} />
+        </div>
       </div>
       <Separator className='my-4' />
       {listingUser && (
