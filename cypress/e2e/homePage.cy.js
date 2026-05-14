@@ -22,4 +22,22 @@ describe('Home Page', () => {
       expectedListingsCount,
     );
   });
+
+  it('filters listings correctly', () => {
+    cy.get('[data-testid="listing-filters"] input[name="search"]').type(
+      'Paris',
+    );
+
+    cy.get('[data-testid="listing-filters-submit"]').click();
+
+    cy.get('[data-testid="listing-list"] > *').should('have.length', 6);
+
+    for (let i = 0; i < 16; i++) {
+      cy.get('[data-testid="stepper-increment"]').click();
+    }
+
+    cy.get('[data-testid="listing-filters-submit"]').click();
+
+    cy.get('[data-testid="listing-list"] > *').should('have.length', 1);
+  });
 });
